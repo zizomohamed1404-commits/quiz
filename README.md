@@ -7,7 +7,15 @@ Weaa Academi
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>كويز المعلومات الإسلامية</title>
     <style>
-        body {<img src="logo.jpg" alt="Islamic Banner" style="width: 100%; height: 250px; object-fit: cover; display: block; margin-bottom: 30px; border-bottom: 4px solid #10b981;">
+        body {font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
 
         .main-container {
