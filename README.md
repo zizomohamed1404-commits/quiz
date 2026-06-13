@@ -1,4 +1,4 @@
-Weaa Academy_
+Weaa Academy/
 Creator Zidan Mohamed
 
 <html lang="ar" dir="rtl">
