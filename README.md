@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبر معلوماتك الإسلامية</title>
+    <title>كويز المعلومات الإسلامية</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -18,10 +18,10 @@
             min-height: 100vh;
         }
 
-        .quiz-container {
+        .main-container {
             background-color: #1e293b;
             width: 90%;
-            max-width: 600px;
+            max-width: 650px;
             border-radius: 16px;
             padding: 30px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
@@ -37,10 +37,66 @@
             padding-bottom: 15px;
         }
 
-        .question-number {
-            font-size: 1rem;
+        /* شاشة اختيار المستوى */
+        #levelScreen {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .level-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #e2e8f0;
+        }
+
+        .level-btn {
+            background-color: #334155;
+            color: white;
+            border: 2px solid transparent;
+            padding: 15px;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            font-weight: bold;
+        }
+
+        .level-btn.easy:hover { background-color: #059669; border-color: #10b981; }
+        .level-btn.medium:hover { background-color: #d97706; border-color: #f59e0b; }
+        .level-btn.hard:hover { background-color: #e11d48; border-color: #fb7185; }
+
+        /* شاشة الكويز */
+        #quizScreen {
+            display: none;
+        }
+
+        .quiz-info-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #0f172a;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #334155;
+        }
+
+        .question-counter {
+            font-size: 1.1rem;
             color: #94a3b8;
-            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .live-score {
+            font-size: 1.2rem;
+            color: #f59e0b;
+            font-weight: bold;
+            background-color: #334155;
+            padding: 5px 15px;
+            border-radius: 20px;
         }
 
         .question-text {
@@ -69,7 +125,6 @@
 
         .option-btn:hover {
             background-color: #475569;
-            border-color: #10b981;
         }
 
         .option-btn.correct {
@@ -103,16 +158,15 @@
             font-family: inherit;
         }
 
-        .next-btn:hover {
-            background-color: #059669;
-        }
+        .next-btn:hover { background-color: #059669; }
 
-        .result-container {
+        /* شاشة النتيجة */
+        #resultScreen {
             display: none;
         }
 
-        .score-text {
-            font-size: 2rem;
+        .final-score {
+            font-size: 2.5rem;
             color: #10b981;
             margin: 20px 0;
             font-weight: bold;
@@ -128,137 +182,227 @@
             cursor: pointer;
             font-weight: bold;
             font-family: inherit;
+            margin-top: 15px;
         }
 
-        .restart-btn:hover {
-            background-color: #2563eb;
-        }
+        .restart-btn:hover { background-color: #2563eb; }
+
     </style>
 </head>
 <body>
 
-    <div class="quiz-container">
+    <div class="main-container">
         <div class="header">🌙 كويز المعلومات الإسلامية</div>
         
-        <div id="quizSection">
-            <div class="question-number" id="questionNumber">السؤال 1 من 20</div>
-            <div class="question-text" id="questionText">جاري تحميل السؤال...</div>
-            <div class="options-container" id="optionsContainer">
-                </div>
-            <button class="next-btn" id="nextBtn" onclick="nextQuestion()">السؤال التالي</button>
+        <div id="levelScreen">
+            <div class="level-title">اختر مستوى الصعوبة لبدء التحدي:</div>
+            <button class="level-btn easy" onclick="startQuiz('easy')">🟢 مستوى سهل</button>
+            <button class="level-btn medium" onclick="startQuiz('medium')">🟠 مستوى متوسط</button>
+            <button class="level-btn hard" onclick="startQuiz('hard')">🔴 مستوى صعب</button>
         </div>
 
-        <div class="result-container" id="resultSection">
+        <div id="quizScreen">
+            <div class="quiz-info-bar">
+                <div class="question-counter" id="questionCounter">السؤال 1 / 20</div>
+                <div class="live-score" id="liveScore">النقاط: 0</div>
+            </div>
+            
+            <div class="question-text" id="questionText">جاري التحميل...</div>
+            
+            <div class="options-container" id="optionsContainer"></div>
+            
+            <button class="next-btn" id="nextBtn" onclick="goToNextQuestion()">السؤال التالي</button>
+        </div>
+
+        <div id="resultScreen">
             <h2>انتهى الاختبار! 🎉</h2>
-            <div class="score-text" id="scoreText">نتيجتك: 0 / 20</div>
-            <button class="restart-btn" onclick="restartQuiz()">إعادة الاختبار</button>
+            <div class="final-score" id="finalScore">0 / 20</div>
+            <div id="feedbackText" style="font-size: 1.2rem; color: #94a3b8; margin-bottom: 20px;"></div>
+            <button class="restart-btn" onclick="resetToHome()">العودة للقائمة الرئيسية</button>
         </div>
     </div>
 
     <script>
-        const questions = [
-            { q: "من هو آخر الأنبياء والرسل؟", options: ["عيسى عليه السلام", "موسى عليه السلام", "محمد صلى الله عليه وسلم", "إبراهيم عليه السلام"], answer: 2 },
-            { q: "كم عدد سور القرآن الكريم؟", options: ["110 سورة", "114 سورة", "120 سورة", "99 سورة"], answer: 1 },
-            { q: "ما هي أطول سورة في القرآن الكريم؟", options: ["سورة البقرة", "سورة آل عمران", "سورة النساء", "سورة الأعراف"], answer: 0 },
-            { q: "في أي شهر نزل القرآن الكريم؟", options: ["رجب", "شعبان", "رمضان", "محرم"], answer: 2 },
-            { q: "من هو الصحابي الملقب بـ (أول الخلفاء الراشدين)؟", options: ["عمر بن الخطاب", "علي بن أبي طالب", "عثمان بن عفان", "أبو بكر الصديق"], answer: 3 },
-            { q: "ما هي أقصر سورة في القرآن الكريم؟", options: ["سورة الإخلاص", "سورة الكوثر", "سورة العصر", "سورة الناس"], answer: 1 },
-            { q: "كم عدد أركان الإسلام؟", options: ["4", "5", "6", "7"], answer: 1 },
-            { q: "ما هو الكتاب السماوي الذي أُنزل على سيدنا عيسى عليه السلام؟", options: ["التوراة", "الزبور", "القرآن", "الإنجيل"], answer: 3 },
-            { q: "ما هي السورة التي تُسمى (قلب القرآن)؟", options: ["سورة يس", "سورة الرحمن", "سورة تبارك", "سورة الكهف"], answer: 0 },
-            { q: "من هو الصحابي الجليل الملقب بـ (سيف الله المسلول)؟", options: ["حمزة بن عبد المطلب", "خالد بن الوليد", "سعد بن معاذ", "أبو عبيدة بن الجراح"], answer: 1 },
-            { q: "كم عدد أركان الإيمان؟", options: ["5", "6", "7", "8"], answer: 1 },
-            { q: "ما هي الغزوة التي سُميت بـ (يوم الفرقان)؟", options: ["غزوة أحد", "غزوة الخندق", "غزوة بدر", "غزوة تبوك"], answer: 2 },
-            { q: "من هو أول مؤذن في الإسلام؟", options: ["بلال بن رباح", "عمار بن ياسر", "صهيب الرومي", "سلمان الفارسي"], answer: 0 },
-            { q: "ما هي القبلة الأولى للمسلمين قبل الكعبة؟", options: ["المسجد النبوي", "المسجد الأموي", "المسجد الأقصى", "مسجد قباء"], answer: 2 },
-            { q: "ما هي السورة الوحيدة التي لا تبدأ بـ (بسم الله الرحمن الرحيم)؟", options: ["سورة الأنفال", "سورة التوبة", "سورة النحل", "سورة الرعد"], answer: 1 },
-            { q: "من هي أولى زوجات النبي محمد صلى الله عليه وسلم؟", options: ["عائشة بنت أبي بكر", "حفصة بنت عمر", "خديجة بنت خويلد", "زينب بنت جحش"], answer: 2 },
-            { q: "كم سنة استمر نزول الوحي بالقرآن الكريم؟", options: ["10 سنوات", "20 سنة", "23 سنة", "30 سنة"], answer: 2 },
-            { q: "ما هو الجبل الذي رست عليه سفينة نبي الله نوح؟", options: ["جبل الطور", "جبل أحد", "جبل الجودي", "جبل عرفات"], answer: 2 },
-            { q: "ما هي الصلاة التي ليس فيها ركوع ولا سجود؟", options: ["صلاة العيد", "صلاة الاستسقاء", "صلاة الجنازة", "صلاة الضحى"], answer: 2 },
-            { q: "من هو الصحابي الذي تستحي منه ملائكة الرحمن؟", options: ["عثمان بن عفان", "عمر بن الخطاب", "علي بن أبي طالب", "الزبير بن العوام"], answer: 0 }
-        ];
+        // بنك الأسئلة مقسم لـ 3 مستويات
+        const questionBank = {
+            easy: [
+                { q: "من هو آخر الأنبياء والرسل؟", options: ["عيسى عليه السلام", "موسى عليه السلام", "محمد صلى الله عليه وسلم", "إبراهيم عليه السلام"], answer: 2 },
+                { q: "ما هو أول شهر في التقويم الهجري؟", options: ["رمضان", "محرم", "شوال", "رجب"], answer: 1 },
+                { q: "كم عدد الصلوات المفروضة في اليوم والليلة؟", options: ["3 صلوات", "4 صلوات", "5 صلوات", "6 صلوات"], answer: 2 },
+                { q: "ما هو الكتاب السماوي الذي أُنزل على سيدنا محمد؟", options: ["القرآن الكريم", "الإنجيل", "التوراة", "الزبور"], answer: 0 },
+                { q: "ما هي أقصر سورة في القرآن الكريم؟", options: ["الإخلاص", "الفلق", "الناس", "الكوثر"], answer: 3 },
+                { q: "أين توجد الكعبة المشرفة؟", options: ["في المدينة المنورة", "في مكة المكرمة", "في القدس", "في الطائف"], answer: 1 },
+                { q: "من هو أول الخلفاء الراشدين؟", options: ["عمر بن الخطاب", "علي بن أبي طالب", "أبو بكر الصديق", "عثمان بن عفان"], answer: 2 },
+                { q: "في أي شهر يصوم المسلمون؟", options: ["رجب", "شعبان", "رمضان", "ذو الحجة"], answer: 2 },
+                { q: "ما هو الركن الأول من أركان الإسلام؟", options: ["الصلاة", "الزكاة", "الشهادتان", "الصوم"], answer: 2 },
+                { q: "ما هي قبلة المسلمين في الصلاة؟", options: ["المسجد الأقصى", "الكعبة المشرفة", "المسجد النبوي", "جبل عرفات"], answer: 1 },
+                { q: "من هو النبي الذي بنى الكعبة مع ابنه؟", options: ["نوح عليه السلام", "إبراهيم عليه السلام", "موسى عليه السلام", "يوسف عليه السلام"], answer: 1 },
+                { q: "ما هو الحيوان الذي ارتبط بقصة النبي صالح؟", options: ["الناقة", "الفيل", "الحوت", "الكلب"], answer: 0 },
+                { q: "من هو النبي الذي ابتلعه الحوت؟", options: ["يونس عليه السلام", "أيوب عليه السلام", "يحيى عليه السلام", "يعقوب عليه السلام"], answer: 0 },
+                { q: "من هو الملك الموكل بنزول الوحي؟", options: ["ميكائيل", "إسرافيل", "جبريل", "عزرائيل"], answer: 2 },
+                { q: "ما هي السورة التي تقرأ في كل ركعة من الصلاة؟", options: ["البقرة", "الفاتحة", "الإخلاص", "الكوثر"], answer: 1 },
+                { q: "كم عدد أعياد المسلمين في السنة؟", options: ["عيد واحد", "عيدان", "ثلاثة أعياد", "أربعة أعياد"], answer: 1 },
+                { q: "من هو عم النبي الذي نزلت فيه سورة تذمه؟", options: ["أبو طالب", "حمزة", "العباس", "أبو لهب"], answer: 3 },
+                { q: "ما اسم أم النبي محمد صلى الله عليه وسلم؟", options: ["حليمة السعدية", "آمنة بنت وهب", "خديجة بنت خويلد", "فاطمة بنت أسد"], answer: 1 },
+                { q: "ما اسم والد النبي محمد صلى الله عليه وسلم؟", options: ["عبد المطلب", "عبد الله", "أبو طالب", "هاشم"], answer: 1 },
+                { q: "من هي أول امرأة أسلمت؟", options: ["عائشة بنت أبي بكر", "أسماء بنت أبي بكر", "خديجة بنت خويلد", "سمية بنت خياط"], answer: 2 }
+            ],
+            medium: [
+                { q: "ما هي السورة التي تُسمى (قلب القرآن)؟", options: ["سورة يس", "سورة الرحمن", "سورة تبارك", "سورة الكهف"], answer: 0 },
+                { q: "من هو الصحابي الجليل الملقب بـ (سيف الله المسلول)؟", options: ["حمزة بن عبد المطلب", "خالد بن الوليد", "سعد بن معاذ", "أبو عبيدة بن الجراح"], answer: 1 },
+                { q: "من هو أول مؤذن في الإسلام؟", options: ["بلال بن رباح", "عمار بن ياسر", "صهيب الرومي", "سلمان الفارسي"], answer: 0 },
+                { q: "ما هي القبلة الأولى للمسلمين قبل الكعبة؟", options: ["المسجد النبوي", "المسجد الأموي", "المسجد الأقصى", "مسجد قباء"], answer: 2 },
+                { q: "ما هي السورة الوحيدة التي لا تبدأ بـ (بسم الله الرحمن الرحيم)؟", options: ["الأنفال", "التوبة", "النحل", "الرعد"], answer: 1 },
+                { q: "كم سنة استمر نزول الوحي بالقرآن الكريم؟", options: ["10 سنوات", "20 سنة", "23 سنة", "30 سنة"], answer: 2 },
+                { q: "ما هي الغزوة التي سُميت بـ (يوم الفرقان)؟", options: ["أحد", "الخندق", "بدر", "تبوك"], answer: 2 },
+                { q: "كم عدد سور القرآن الكريم؟", options: ["110 سورة", "114 سورة", "120 سورة", "99 سورة"], answer: 1 },
+                { q: "ما هي السورة التي تُسمى (عروس القرآن)؟", options: ["الواقعة", "الرحمن", "يس", "يوسف"], answer: 1 },
+                { q: "من هو الصحابي الذي تستحي منه ملائكة الرحمن؟", options: ["عثمان بن عفان", "عمر بن الخطاب", "علي بن أبي طالب", "الزبير بن العوام"], answer: 0 },
+                { q: "من هي مرضعة النبي محمد صلى الله عليه وسلم؟", options: ["أم أيمن", "ثويبة", "حليمة السعدية", "آمنة بنت وهب"], answer: 2 },
+                { q: "إلى أي قبيلة ينتمي النبي محمد؟", options: ["خزرج", "أوس", "قريش", "ثقيف"], answer: 2 },
+                { q: "ما اسم الغار الذي نزل فيه الوحي لأول مرة؟", options: ["غار ثور", "غار حراء", "غار الطور", "غار أحد"], answer: 1 },
+                { q: "ما هي المعجزة التي أُسري فيها بالنبي للسماء؟", options: ["شق الصدر", "الإسراء والمعراج", "انشقاق القمر", "الهجرة"], answer: 1 },
+                { q: "في أي غزوة خالف الرماة أمر النبي؟", options: ["بدر", "أحد", "مؤتة", "الخندق"], answer: 1 },
+                { q: "من هي زوجة فرعون التي ضرب الله بها مثلاً للمؤمنين؟", options: ["مريم", "آسيا", "سارة", "هاجر"], answer: 1 },
+                { q: "كم عدد أجزاء القرآن الكريم؟", options: ["20 جزء", "30 جزء", "40 جزء", "60 جزء"], answer: 1 },
+                { q: "من هو النبي الذي تكلم في المهد صبياً؟", options: ["يحيى عليه السلام", "موسى عليه السلام", "عيسى عليه السلام", "يوسف عليه السلام"], answer: 2 },
+                { q: "من هو الصحابي الذي كُلف بجمع القرآن الكريم في عهد أبي بكر؟", options: ["عبدالله بن مسعود", "زيد بن ثابت", "أبي بن كعب", "معاذ بن جبل"], answer: 1 },
+                { q: "ما هي السورة التي سميت باسم امرأة؟", options: ["سورة النساء", "سورة خديجة", "سورة مريم", "سورة فاطمة"], answer: 2 }
+            ],
+            hard: [
+                { q: "ما هي أطول سورة في القرآن الكريم؟", options: ["سورة البقرة", "سورة آل عمران", "سورة النساء", "سورة الأعراف"], answer: 0 },
+                { q: "ما هي السورة التي وردت فيها (البسملة) مرتين؟", options: ["سورة النمل", "سورة القصص", "سورة النحل", "سورة هود"], answer: 0 },
+                { q: "من هو النبي الأكثر ذكراً بالاسم في القرآن الكريم؟", options: ["محمد", "إبراهيم", "عيسى", "موسى"], answer: 3 },
+                { q: "ما هو الاسم الآخر لغزوة الخندق؟", options: ["غزوة الأحزاب", "غزوة تبوك", "غزوة حنين", "غزوة بني قينقاع"], answer: 0 },
+                { q: "ما اسم باب الجنة المخصص للصائمين؟", options: ["باب التوبة", "باب الريان", "باب الصلاة", "باب الجهاد"], answer: 1 },
+                { q: "من هو الصحابي الذي اهتز لموته عرش الرحمن؟", options: ["سعد بن معاذ", "سعد بن أبي وقاص", "حمزة بن عبد المطلب", "جعفر بن أبي طالب"], answer: 0 },
+                { q: "من هي أول شهيدة في الإسلام؟", options: ["خديجة بنت خويلد", "فاطمة بنت الخطاب", "سمية بنت خياط", "أسماء بنت أبي بكر"], answer: 2 },
+                { q: "في أي عام ميلادي وُلد النبي محمد تقريباً؟", options: ["570 م", "610 م", "622 م", "632 م"], answer: 0 },
+                { q: "ما هي السورة التي تنتهي بذكر نبيين؟", options: ["سورة الأعلى", "سورة الفجر", "سورة الغاشية", "سورة الشمس"], answer: 0 },
+                { q: "من الذي قام بتغسيل النبي بعد وفاته؟", options: ["أبو بكر الصديق", "عمر بن الخطاب", "علي بن أبي طالب والعباس", "عثمان بن عفان"], answer: 2 },
+                { q: "كم كان عمر النبي عند وفاته؟", options: ["60 عاماً", "63 عاماً", "65 عاماً", "70 عاماً"], answer: 1 },
+                { q: "كم عدد أبواب الجنة؟", options: ["6 أبواب", "7 أبواب", "8 أبواب", "9 أبواب"], answer: 2 },
+                { q: "في أي سنة هجرية تم صلح الحديبية؟", options: ["العام الرابع", "العام الخامس", "العام السادس", "العام الثامن"], answer: 2 },
+                { q: "ما هي السورة المنجية من عذاب القبر؟", options: ["سورة الدخان", "سورة السجدة", "سورة الملك", "سورة القيامة"], answer: 2 },
+                { q: "من هو أطول الأنبياء عمراً؟", options: ["آدم عليه السلام", "نوح عليه السلام", "شعيب عليه السلام", "إدريس عليه السلام"], answer: 1 },
+                { q: "ما اسم ملك الحبشة الذي استقبل المسلمين في الهجرة الأولى؟", options: ["المقوقس", "النجاشي", "كسرى", "هرقل"], answer: 1 },
+                { q: "من هو الصحابي الملقب بـ (ترجمان القرآن)؟", options: ["عبدالله بن مسعود", "عبدالله بن عباس", "زيد بن ثابت", "أبي بن كعب"], answer: 1 },
+                { q: "ما هو الحيوان الذي نام مع أصحاب الكهف؟", options: ["قط", "كلب", "ذئب", "أسد"], answer: 1 },
+                { q: "ما هو اسم ناقة النبي محمد صلى الله عليه وسلم؟", options: ["القصواء", "الشهباء", "العضباء", "البراق"], answer: 0 },
+                { q: "ما هو الجبل الذي رست عليه سفينة نوح؟", options: ["جبل الطور", "جبل الجودي", "جبل أحد", "جبل الصفا"], answer: 1 }
+            ]
+        };
 
-        let currentQuestionIndex = 0;
-        let score = 0;
+        let currentQuestionsList = [];
+        let currentIndex = 0;
+        let userScore = 0;
 
-        const questionNumberEl = document.getElementById('questionNumber');
-        const questionTextEl = document.getElementById('questionText');
-        const optionsContainer = document.getElementById('optionsContainer');
-        const nextBtn = document.getElementById('nextBtn');
-        const quizSection = document.getElementById('quizSection');
-        const resultSection = document.getElementById('resultSection');
-        const scoreText = document.getElementById('scoreText');
+        // عناصر الـ HTML اللي هنتعامل معاها
+        const screenLevel = document.getElementById('levelScreen');
+        const screenQuiz = document.getElementById('quizScreen');
+        const screenResult = document.getElementById('resultScreen');
+        
+        const labelCounter = document.getElementById('questionCounter');
+        const labelScore = document.getElementById('liveScore');
+        const labelQuestion = document.getElementById('questionText');
+        const boxOptions = document.getElementById('optionsContainer');
+        const btnNext = document.getElementById('nextBtn');
+        
+        const labelFinalScore = document.getElementById('finalScore');
+        const labelFeedback = document.getElementById('feedbackText');
 
-        function loadQuestion() {
-            nextBtn.style.display = 'none';
-            optionsContainer.innerHTML = '';
+        // دالة بداية الكويز وتحديد المستوى
+        function startQuiz(difficulty) {
+            currentQuestionsList = questionBank[difficulty];
+            currentIndex = 0;
+            userScore = 0;
             
-            const currentQ = questions[currentQuestionIndex];
-            questionNumberEl.innerText = `السؤال ${currentQuestionIndex + 1} من ${questions.length}`;
-            questionTextEl.innerText = currentQ.q;
+            screenLevel.style.display = 'none';
+            screenQuiz.style.display = 'block';
+            
+            displayQuestion();
+            updateLiveScore();
+        }
 
-            currentQ.options.forEach((option, index) => {
-                const btn = document.createElement('button');
-                btn.classList.add('option-btn');
-                btn.innerText = option;
-                btn.onclick = () => checkAnswer(index, btn);
-                optionsContainer.appendChild(btn);
+        // دالة عرض السؤال الحالي
+        function displayQuestion() {
+            btnNext.style.display = 'none';
+            boxOptions.innerHTML = '';
+            
+            const qData = currentQuestionsList[currentIndex];
+            labelCounter.innerText = `السؤال ${currentIndex + 1} / ${currentQuestionsList.length}`;
+            labelQuestion.innerText = qData.q;
+
+            qData.options.forEach((choiceText, i) => {
+                const btnChoice = document.createElement('button');
+                btnChoice.classList.add('option-btn');
+                btnChoice.innerText = choiceText;
+                btnChoice.onclick = () => verifyAnswer(i, btnChoice);
+                boxOptions.appendChild(btnChoice);
             });
         }
 
-        function checkAnswer(selectedIndex, selectedBtn) {
-            const currentQ = questions[currentQuestionIndex];
-            const allBtns = optionsContainer.children;
+        // دالة التأكد من الإجابة
+        function verifyAnswer(selectedIndex, clickedBtn) {
+            const qData = currentQuestionsList[currentIndex];
+            const allChoiceBtns = boxOptions.children;
 
-            // تعطيل كل الأزرار بعد الاختيار
-            for(let i = 0; i < allBtns.length; i++) {
-                allBtns[i].disabled = true;
-                if (i === currentQ.answer) {
-                    allBtns[i].classList.add('correct');
+            // إيقاف كل الأزرار عشان ميخترش مرتين
+            for(let j = 0; j < allChoiceBtns.length; j++) {
+                allChoiceBtns[j].disabled = true;
+                if (j === qData.answer) {
+                    allChoiceBtns[j].classList.add('correct'); // تلوين الإجابة الصح بالأخضر دائماً
                 }
             }
 
-            if (selectedIndex === currentQ.answer) {
-                score++;
+            // لو الإجابة صح زود العداد
+            if (selectedIndex === qData.answer) {
+                userScore++;
+                updateLiveScore();
             } else {
-                selectedBtn.classList.add('wrong');
+                clickedBtn.classList.add('wrong'); // تلوين إجابته الغلط بالأحمر
             }
 
-            nextBtn.style.display = 'inline-block';
+            btnNext.style.display = 'inline-block'; // إظهار زر السؤال التالي
         }
 
-        function nextQuestion() {
-            currentQuestionIndex++;
-            if (currentQuestionIndex < questions.length) {
-                loadQuestion();
+        // تحديث عداد النقاط اللايف
+        function updateLiveScore() {
+            labelScore.innerText = `النقاط: ${userScore}`;
+        }
+
+        // الانتقال للسؤال اللي بعده
+        function goToNextQuestion() {
+            currentIndex++;
+            if (currentIndex < currentQuestionsList.length) {
+                displayQuestion();
             } else {
-                showResult();
+                finishQuiz();
             }
         }
 
-        function showResult() {
-            quizSection.style.display = 'none';
-            resultSection.style.display = 'block';
+        // إنهاء الكويز وإظهار النتيجة
+        function finishQuiz() {
+            screenQuiz.style.display = 'none';
+            screenResult.style.display = 'block';
             
-            let message = "";
-            if(score >= 18) message = "ما شاء الله! ممتاز جداً 🌟";
-            else if(score >= 10) message = "جيد جداً! معلوماتك حلوة 👍";
-            else message = "محتاج تراجع معلوماتك شوية، بالتوفيق المرة الجاية 💪";
-
-            scoreText.innerHTML = `نتيجتك: ${score} / ${questions.length} <br> <span style="font-size:1.2rem; color:#94a3b8; display:block; margin-top:15px;">${message}</span>`;
+            labelFinalScore.innerText = `${userScore} / ${currentQuestionsList.length}`;
+            
+            if(userScore >= 18) {
+                labelFeedback.innerText = "عاش جداً! معلوماتك ممتازة 🌟";
+            } else if(userScore >= 10) {
+                labelFeedback.innerText = "أداؤك جيد، بس تقدر تجيب أحسن من كده 👍";
+            } else {
+                labelFeedback.innerText = "محتاج تراجع معلوماتك أكتر يا بطل، حاول تاني 💪";
+            }
         }
 
-        function restartQuiz() {
-            currentQuestionIndex = 0;
-            score = 0;
-            quizSection.style.display = 'block';
-            resultSection.style.display = 'none';
-            loadQuestion();
+        // العودة للشاشة الرئيسية
+        function resetToHome() {
+            screenResult.style.display = 'none';
+            screenLevel.style.display = 'flex';
         }
 
-        // تشغيل الكويز أول ما الصفحة تفتح
-        loadQuestion();
     </script>
 </body>
 </html>
