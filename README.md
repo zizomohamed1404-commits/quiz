@@ -6,6 +6,7 @@ Creator Zidan Mohamed
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>كويز المعلومات الإسلامية</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         body {font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #0f172a;
@@ -26,6 +27,8 @@ Creator Zidan Mohamed
             padding: 30px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             text-align: center;
+            position: relative;
+            z-index: 10;
         }
 
         .header {
@@ -97,6 +100,12 @@ Creator Zidan Mohamed
             background-color: #334155;
             padding: 5px 15px;
             border-radius: 20px;
+            transition: transform 0.2s;
+        }
+        
+        .live-score.bump {
+            transform: scale(1.2);
+            color: #10b981;
         }
 
         .question-text {
@@ -131,12 +140,23 @@ Creator Zidan Mohamed
             background-color: #059669;
             border-color: #059669;
             color: white;
+            transform: scale(1.02);
         }
 
         .option-btn.wrong {
             background-color: #e11d48;
             border-color: #e11d48;
             color: white;
+            animation: shake 0.4s;
+        }
+
+        /* أنيميشن الاهتزاز للإجابة الغلط */
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
         }
 
         .option-btn:disabled {
@@ -237,7 +257,46 @@ Creator Zidan Mohamed
     </div>
 
     <script>
-        // بنك الأسئلة مقسم لـ 3 مستويات (تم زيادة الأسئلة لتعمل العشوائية بشكل أفضل)
+        // إعدادات الصوت البرمجي (عشان مشنحتاجش ملفات صوت خارجية)
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function playTone(freq, type, duration, vol = 0.1) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            oscillator.type = type;
+            oscillator.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            gainNode.gain.setValueAtTime(vol, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            oscillator.start();
+            oscillator.stop(audioCtx.currentTime + duration);
+        }
+
+        // صوت الإجابة الصحيحة
+        function playCorrectSound() {
+            playTone(600, 'sine', 0.1, 0.1);
+            setTimeout(() => playTone(800, 'sine', 0.15, 0.1), 100);
+        }
+
+        // صوت الإجابة الخاطئة
+        function playWrongSound() {
+            playTone(250, 'sawtooth', 0.3, 0.05);
+            setTimeout(() => playTone(200, 'sawtooth', 0.4, 0.05), 150);
+        }
+
+        // تأثير الاحتفال البصري (الكونفيتي)
+        function triggerConfetti() {
+            confetti({
+                particleCount: 80,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#10b981', '#f59e0b', '#3b82f6', '#ffffff']
+            });
+        }
+
+        // بنك الأسئلة مقسم لـ 3 مستويات
         const questionBank = {
             easy: [
                 { q: "من هو آخر الأنبياء والرسل؟", options: ["عيسى عليه السلام", "موسى عليه السلام", "محمد صلى الله عليه وسلم", "إبراهيم عليه السلام"], answer: 2 },
@@ -364,13 +423,10 @@ Creator Zidan Mohamed
 
         // دالة بداية الكويز وتحديد المستوى
         function startQuiz(difficulty) {
-            // نأخذ نسخة من كل الأسئلة الموجودة في المستوى المختار
+            if (audioCtx.state === 'suspended') audioCtx.resume(); // تفعيل الصوت مع أول ضغطة
+            
             let allQuestions = [...questionBank[difficulty]];
-
-            // نلخبط الأسئلة كلها
             let shuffledQuestions = shuffleArray(allQuestions);
-
-            // نختار أول 20 سؤال بس من الأسئلة المتلخبطة
             currentQuestionsList = shuffledQuestions.slice(0, 20);
 
             currentIndex = 0;
@@ -380,7 +436,7 @@ Creator Zidan Mohamed
             screenQuiz.style.display = 'block';
             
             displayQuestion();
-            updateLiveScore();
+            updateLiveScore(false);
         }
 
         // دالة عرض السؤال الحالي
@@ -414,20 +470,27 @@ Creator Zidan Mohamed
                 }
             }
 
-            // حساب النتيجة
+            // حساب النتيجة وتشغيل التأثيرات
             if (selectedIndex === qData.answer) {
                 userScore++;
-                updateLiveScore();
+                updateLiveScore(true);
+                playCorrectSound();
+                triggerConfetti();
             } else {
                 clickedBtn.classList.add('wrong');
+                playWrongSound();
             }
 
             btnNext.style.display = 'inline-block';
         }
 
-        // تحديث النقاط
-        function updateLiveScore() {
+        // تحديث النقاط مع تأثير بصري خفيف للرقم
+        function updateLiveScore(animate) {
             labelScore.innerText = `النقاط: ${userScore}`;
+            if (animate) {
+                labelScore.classList.add('bump');
+                setTimeout(() => labelScore.classList.remove('bump'), 200);
+            }
         }
 
         // السؤال التالي
@@ -449,6 +512,9 @@ Creator Zidan Mohamed
             
             if(userScore >= 18) {
                 labelFeedback.innerText = "عاش جداً! معلوماتك ممتازة 🌟";
+                // احتفال كبير في النهاية لو جاب مجموع عالي
+                let endConfetti = setInterval(triggerConfetti, 500);
+                setTimeout(() => clearInterval(endConfetti), 2500);
             } else if(userScore >= 10) {
                 labelFeedback.innerText = "أداؤك جيد، بس تقدر تجيب أحسن من كده 👍";
             } else {
