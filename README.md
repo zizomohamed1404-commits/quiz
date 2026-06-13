@@ -1,7 +1,6 @@
-
-Weaa Academy
+Weaa Academy_
 Creator Zidan Mohamed
-</Creator>
+
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
