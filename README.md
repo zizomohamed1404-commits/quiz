@@ -1,5 +1,3 @@
-# weaa.academi
-# created and Prepared by zidane 
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -187,6 +185,22 @@
         }
 
         .restart-btn:hover { background-color: #2563eb; }
+
+        /* الكود الجديد اللي تم إضافته عشان اسمك */
+        .credits {
+            position: fixed;
+            bottom: 15px;
+            left: 15px;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            direction: ltr;
+            background-color: rgba(30, 41, 59, 0.8);
+            padding: 5px 10px;
+            border-radius: 8px;
+            z-index: 1000;
+            border: 1px solid #334155;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
     </style>
 </head>
@@ -405,5 +419,8 @@
         }
 
     </script>
+    
+    <div class="credits">created and Prepared by zidane</div>
+
 </body>
 </html>
