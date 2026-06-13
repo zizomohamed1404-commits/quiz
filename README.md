@@ -1,6 +1,6 @@
 
 Weaa Academy
-Creator </Zidan Mohamed>
+Creator Zidan Mohamed
 </Creator>
 <html lang="ar" dir="rtl">
 <head>
