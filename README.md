@@ -187,7 +187,6 @@ Creator Zidan Mohamed
 
         .restart-btn:hover { background-color: #2563eb; }
 
-        /* الكود الجديد اللي تم إضافته عشان اسمك */
         .credits {
             position: fixed;
             bottom: 15px;
@@ -202,7 +201,6 @@ Creator Zidan Mohamed
             border: 1px solid #334155;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
     </style>
 </head>
 <body>
@@ -239,7 +237,7 @@ Creator Zidan Mohamed
     </div>
 
     <script>
-        // بنك الأسئلة مقسم لـ 3 مستويات
+        // بنك الأسئلة مقسم لـ 3 مستويات (تم زيادة الأسئلة لتعمل العشوائية بشكل أفضل)
         const questionBank = {
             easy: [
                 { q: "من هو آخر الأنبياء والرسل؟", options: ["عيسى عليه السلام", "موسى عليه السلام", "محمد صلى الله عليه وسلم", "إبراهيم عليه السلام"], answer: 2 },
@@ -261,7 +259,17 @@ Creator Zidan Mohamed
                 { q: "من هو عم النبي الذي نزلت فيه سورة تذمه؟", options: ["أبو طالب", "حمزة", "العباس", "أبو لهب"], answer: 3 },
                 { q: "ما اسم أم النبي محمد صلى الله عليه وسلم؟", options: ["حليمة السعدية", "آمنة بنت وهب", "خديجة بنت خويلد", "فاطمة بنت أسد"], answer: 1 },
                 { q: "ما اسم والد النبي محمد صلى الله عليه وسلم؟", options: ["عبد المطلب", "عبد الله", "أبو طالب", "هاشم"], answer: 1 },
-                { q: "من هي أول امرأة أسلمت؟", options: ["عائشة بنت أبي بكر", "أسماء بنت أبي بكر", "خديجة بنت خويلد", "سمية بنت خياط"], answer: 2 }
+                { q: "من هي أول امرأة أسلمت؟", options: ["عائشة بنت أبي بكر", "أسماء بنت أبي بكر", "خديجة بنت خويلد", "سمية بنت خياط"], answer: 2 },
+                { q: "ما هو الركن الثاني من أركان الإسلام؟", options: ["الزكاة", "الصيام", "الصلاة", "الحج"], answer: 2 },
+                { q: "من هو النبي الملقب بـ (خليل الله)؟", options: ["محمد", "إبراهيم", "موسى", "عيسى"], answer: 1 },
+                { q: "ما هي السورة التي تسمى بأم الكتاب؟", options: ["البقرة", "يس", "الفاتحة", "الكهف"], answer: 2 },
+                { q: "كم عدد ركعات صلاة الفجر؟", options: ["ركعة واحدة", "ركعتان", "ثلاث ركعات", "أربع ركعات"], answer: 1 },
+                { q: "من هو الصحابي الذي نام في فراش النبي ليلة الهجرة؟", options: ["أبو بكر الصديق", "عمر بن الخطاب", "علي بن أبي طالب", "عثمان بن عفان"], answer: 2 },
+                { q: "ما هو الطائر الذي تكلم مع النبي سليمان؟", options: ["الغراب", "الحمامة", "الهدهد", "النسر"], answer: 2 },
+                { q: "ما هو السيف الملقب بـ (ذو الفقار) لمن كان يتبع؟", options: ["خالد بن الوليد", "علي بن أبي طالب", "حمزة بن عبد المطلب", "عمر بن الخطاب"], answer: 1 },
+                { q: "ما هي السورة التي تحمي قارئها من الدجال؟", options: ["الملك", "الكهف", "البقرة", "آل عمران"], answer: 1 },
+                { q: "أين ولد النبي محمد صلى الله عليه وسلم؟", options: ["المدينة المنورة", "الطائف", "مكة المكرمة", "الشام"], answer: 2 },
+                { q: "ما هو اللقب الذي أطلق على النبي محمد قبل البعثة؟", options: ["الصادق الأمين", "الفاروق", "ذو النورين", "سيف الله"], answer: 0 }
             ],
             medium: [
                 { q: "ما هي السورة التي تُسمى (قلب القرآن)؟", options: ["سورة يس", "سورة الرحمن", "سورة تبارك", "سورة الكهف"], answer: 0 },
@@ -283,7 +291,15 @@ Creator Zidan Mohamed
                 { q: "كم عدد أجزاء القرآن الكريم؟", options: ["20 جزء", "30 جزء", "40 جزء", "60 جزء"], answer: 1 },
                 { q: "من هو النبي الذي تكلم في المهد صبياً؟", options: ["يحيى عليه السلام", "موسى عليه السلام", "عيسى عليه السلام", "يوسف عليه السلام"], answer: 2 },
                 { q: "من هو الصحابي الذي كُلف بجمع القرآن الكريم في عهد أبي بكر؟", options: ["عبدالله بن مسعود", "زيد بن ثابت", "أبي بن كعب", "معاذ بن جبل"], answer: 1 },
-                { q: "ما هي السورة التي سميت باسم امرأة؟", options: ["سورة النساء", "سورة خديجة", "سورة مريم", "سورة فاطمة"], answer: 2 }
+                { q: "ما هي السورة التي سميت باسم امرأة؟", options: ["سورة النساء", "سورة خديجة", "سورة مريم", "سورة فاطمة"], answer: 2 },
+                { q: "ما هي الغزوة التي تم فيها حفر الخندق؟", options: ["بدر", "أحد", "الأحزاب", "حنين"], answer: 2 },
+                { q: "من هو قائد الفرس في معركة القادسية؟", options: ["كسرى", "رستم", "المقوقس", "هرقل"], answer: 1 },
+                { q: "ما هي السورة التي تعادل ثلث القرآن؟", options: ["الفاتحة", "الإخلاص", "الفلق", "الناس"], answer: 1 },
+                { q: "من هو الصحابي الذي أشار على النبي بحفر الخندق؟", options: ["عمر بن الخطاب", "سلمان الفارسي", "علي بن أبي طالب", "أبو بكر الصديق"], answer: 1 },
+                { q: "في أي سنة فرض الصيام على المسلمين؟", options: ["السنة الأولى للهجرة", "السنة الثانية للهجرة", "السنة الثالثة للهجرة", "السنة الرابعة للهجرة"], answer: 1 },
+                { q: "من هو كافل السيدة مريم عليها السلام؟", options: ["زكريا", "يحيى", "عيسى", "موسى"], answer: 0 },
+                { q: "ما اسم الشجرة التي تنبت في قعر جهنم؟", options: ["شجرة الزيتون", "شجرة الزقوم", "شجرة التين", "شجرة الغرقد"], answer: 1 },
+                { q: "من هو النبي الذي ألقي في النار ولم تحرقه؟", options: ["موسى", "إبراهيم", "يوسف", "يونس"], answer: 1 }
             ],
             hard: [
                 { q: "ما هي أطول سورة في القرآن الكريم؟", options: ["سورة البقرة", "سورة آل عمران", "سورة النساء", "سورة الأعراف"], answer: 0 },
@@ -305,7 +321,15 @@ Creator Zidan Mohamed
                 { q: "من هو الصحابي الملقب بـ (ترجمان القرآن)؟", options: ["عبدالله بن مسعود", "عبدالله بن عباس", "زيد بن ثابت", "أبي بن كعب"], answer: 1 },
                 { q: "ما هو الحيوان الذي نام مع أصحاب الكهف؟", options: ["قط", "كلب", "ذئب", "أسد"], answer: 1 },
                 { q: "ما هو اسم ناقة النبي محمد صلى الله عليه وسلم؟", options: ["القصواء", "الشهباء", "العضباء", "البراق"], answer: 0 },
-                { q: "ما هو الجبل الذي رست عليه سفينة نوح؟", options: ["جبل الطور", "جبل الجودي", "جبل أحد", "جبل الصفا"], answer: 1 }
+                { q: "ما هو الجبل الذي رست عليه سفينة نوح؟", options: ["جبل الطور", "جبل الجودي", "جبل أحد", "جبل الصفا"], answer: 1 },
+                { q: "من هو الصحابي الذي أُطلق عليه لقب (أمين هذه الأمة)؟", options: ["أبو عبيدة بن الجراح", "أبو بكر الصديق", "عمر بن الخطاب", "عبد الرحمن بن عوف"], answer: 0 },
+                { q: "كم عدد السور المكية في القرآن الكريم؟", options: ["86 سورة", "93 سورة", "114 سورة", "28 سورة"], answer: 0 },
+                { q: "من هم القوم الذين أُرسل إليهم النبي هود عليه السلام؟", options: ["قوم ثمود", "قوم عاد", "قوم مدين", "قوم لوط"], answer: 1 },
+                { q: "في أي غزوة قطعت يد الصحابي جعفر بن أبي طالب؟", options: ["غزوة بدر", "غزوة أحد", "غزوة مؤتة", "غزوة تبوك"], answer: 2 },
+                { q: "ما هي السورة التي تسمى الفاضحة؟", options: ["سورة التوبة", "سورة الأحزاب", "سورة المنافقون", "سورة النور"], answer: 0 },
+                { q: "من هو النبي الذي سخر الله له الجبال تسبح معه؟", options: ["سليمان", "داود", "أيوب", "يونس"], answer: 1 },
+                { q: "كم كان عدد المسلمين في غزوة بدر؟", options: ["300", "313", "1000", "700"], answer: 1 },
+                { q: "ما هي السورة التي ذكرت فيها البسملة في منتصفها؟", options: ["سورة النمل", "سورة التوبة", "سورة الإسراء", "سورة الكهف"], answer: 0 }
             ]
         };
 
@@ -313,7 +337,7 @@ Creator Zidan Mohamed
         let currentIndex = 0;
         let userScore = 0;
 
-        // عناصر الـ HTML اللي هنتعامل معاها
+        // عناصر الـ HTML
         const screenLevel = document.getElementById('levelScreen');
         const screenQuiz = document.getElementById('quizScreen');
         const screenResult = document.getElementById('resultScreen');
@@ -327,9 +351,28 @@ Creator Zidan Mohamed
         const labelFinalScore = document.getElementById('finalScore');
         const labelFeedback = document.getElementById('feedbackText');
 
+        // دالة لخلط الأسئلة بشكل عشوائي
+        function shuffleArray(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
         // دالة بداية الكويز وتحديد المستوى
         function startQuiz(difficulty) {
-            currentQuestionsList = questionBank[difficulty];
+            // نأخذ نسخة من كل الأسئلة الموجودة في المستوى المختار
+            let allQuestions = [...questionBank[difficulty]];
+
+            // نلخبط الأسئلة كلها
+            let shuffledQuestions = shuffleArray(allQuestions);
+
+            // نختار أول 20 سؤال بس من الأسئلة المتلخبطة
+            currentQuestionsList = shuffledQuestions.slice(0, 20);
+
             currentIndex = 0;
             userScore = 0;
             
@@ -363,31 +406,31 @@ Creator Zidan Mohamed
             const qData = currentQuestionsList[currentIndex];
             const allChoiceBtns = boxOptions.children;
 
-            // إيقاف كل الأزرار عشان ميخترش مرتين
+            // إيقاف كل الأزرار
             for(let j = 0; j < allChoiceBtns.length; j++) {
                 allChoiceBtns[j].disabled = true;
                 if (j === qData.answer) {
-                    allChoiceBtns[j].classList.add('correct'); // تلوين الإجابة الصح بالأخضر دائماً
+                    allChoiceBtns[j].classList.add('correct');
                 }
             }
 
-            // لو الإجابة صح زود العداد
+            // حساب النتيجة
             if (selectedIndex === qData.answer) {
                 userScore++;
                 updateLiveScore();
             } else {
-                clickedBtn.classList.add('wrong'); // تلوين إجابته الغلط بالأحمر
+                clickedBtn.classList.add('wrong');
             }
 
-            btnNext.style.display = 'inline-block'; // إظهار زر السؤال التالي
+            btnNext.style.display = 'inline-block';
         }
 
-        // تحديث عداد النقاط اللايف
+        // تحديث النقاط
         function updateLiveScore() {
             labelScore.innerText = `النقاط: ${userScore}`;
         }
 
-        // الانتقال للسؤال اللي بعده
+        // السؤال التالي
         function goToNextQuestion() {
             currentIndex++;
             if (currentIndex < currentQuestionsList.length) {
@@ -397,7 +440,7 @@ Creator Zidan Mohamed
             }
         }
 
-        // إنهاء الكويز وإظهار النتيجة
+        // إنهاء الكويز
         function finishQuiz() {
             screenQuiz.style.display = 'none';
             screenResult.style.display = 'block';
@@ -413,7 +456,7 @@ Creator Zidan Mohamed
             }
         }
 
-        // العودة للشاشة الرئيسية
+        // العودة للرئيسية
         function resetToHome() {
             screenResult.style.display = 'none';
             screenLevel.style.display = 'flex';
