@@ -8,7 +8,8 @@ Creator Zidan Mohamed
     <title>كويز المعلومات الإسلامية</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        body {font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #0f172a;
             color: #f8fafc;
             margin: 0;
@@ -40,7 +41,7 @@ Creator Zidan Mohamed
             padding-bottom: 15px;
         }
 
-        /* شاشة اختيار المستوى */
+        /* شاشة اختيار المستوى وإدخال الاسم */
         #levelScreen {
             display: flex;
             flex-direction: column;
@@ -48,9 +49,29 @@ Creator Zidan Mohamed
             margin-top: 20px;
         }
 
+        .name-input {
+            width: 90%;
+            padding: 15px;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            border: 2px solid #334155;
+            background-color: #0f172a;
+            color: #f8fafc;
+            text-align: center;
+            margin: 0 auto 15px auto;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        .name-input:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+        }
+
         .level-title {
             font-size: 1.3rem;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             color: #e2e8f0;
         }
 
@@ -85,12 +106,26 @@ Creator Zidan Mohamed
             border-radius: 8px;
             margin-bottom: 20px;
             border: 1px solid #334155;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .question-counter {
             font-size: 1.1rem;
             color: #94a3b8;
             font-weight: bold;
+        }
+
+        .timer-display {
+            font-size: 1.2rem;
+            color: #ef4444;
+            font-weight: bold;
+            background-color: #334155;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .live-score {
@@ -132,25 +167,26 @@ Creator Zidan Mohamed
             font-family: inherit;
         }
 
-        .option-btn:hover {
+        .option-btn:hover:not(:disabled) {
             background-color: #475569;
         }
 
         .option-btn.correct {
-            background-color: #059669;
-            border-color: #059669;
+            background-color: #059669 !important;
+            border-color: #059669 !important;
             color: white;
             transform: scale(1.02);
+            opacity: 1 !important;
         }
 
         .option-btn.wrong {
-            background-color: #e11d48;
-            border-color: #e11d48;
+            background-color: #e11d48 !important;
+            border-color: #e11d48 !important;
             color: white;
             animation: shake 0.4s;
+            opacity: 1 !important;
         }
 
-        /* أنيميشن الاهتزاز للإجابة الغلط */
         @keyframes shake {
             0% { transform: translateX(0); }
             25% { transform: translateX(-5px); }
@@ -161,7 +197,7 @@ Creator Zidan Mohamed
 
         .option-btn:disabled {
             cursor: not-allowed;
-            opacity: 0.8;
+            opacity: 0.6;
         }
 
         .next-btn {
@@ -176,6 +212,7 @@ Creator Zidan Mohamed
             display: none;
             font-weight: bold;
             font-family: inherit;
+            width: 100%;
         }
 
         .next-btn:hover { background-color: #059669; }
@@ -186,11 +223,69 @@ Creator Zidan Mohamed
         }
 
         .final-score {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: #10b981;
-            margin: 20px 0;
+            margin: 15px 0;
             font-weight: bold;
         }
+
+        .stats-box {
+            background-color: #0f172a;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-around;
+            border: 1px solid #334155;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* لوحة الشرف Leaderboard */
+        .leaderboard-container {
+            margin-top: 20px;
+            background-color: #0f172a;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #334155;
+        }
+
+        .leaderboard-title {
+            color: #f8fafc;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 10px;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            background-color: #1e293b;
+            font-weight: bold;
+        }
+
+        .rank-1 { background-color: rgba(255, 215, 0, 0.1); border: 1px solid #ffd700; color: #ffd700; }
+        .rank-2 { background-color: rgba(192, 192, 192, 0.1); border: 1px solid #c0c0c0; color: #c0c0c0; }
+        .rank-3 { background-color: rgba(205, 127, 50, 0.1); border: 1px solid #cd7f32; color: #cd7f32; }
 
         .restart-btn {
             background-color: #3b82f6;
@@ -202,7 +297,8 @@ Creator Zidan Mohamed
             cursor: pointer;
             font-weight: bold;
             font-family: inherit;
-            margin-top: 15px;
+            margin-top: 20px;
+            width: 100%;
         }
 
         .restart-btn:hover { background-color: #2563eb; }
@@ -219,7 +315,6 @@ Creator Zidan Mohamed
             border-radius: 8px;
             z-index: 1000;
             border: 1px solid #334155;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
     </style>
 </head>
@@ -229,6 +324,7 @@ Creator Zidan Mohamed
         <div class="header">🌙 كويز المعلومات الإسلامية</div>
         
         <div id="levelScreen">
+            <input type="text" id="playerNameInput" class="name-input" placeholder="اكتب اسمك هنا يا بطل..." autocomplete="off">
             <div class="level-title">اختر مستوى الصعوبة لبدء التحدي:</div>
             <button class="level-btn easy" onclick="startQuiz('easy')">🟢 مستوى سهل</button>
             <button class="level-btn medium" onclick="startQuiz('medium')">🟠 مستوى متوسط</button>
@@ -238,6 +334,7 @@ Creator Zidan Mohamed
         <div id="quizScreen">
             <div class="quiz-info-bar">
                 <div class="question-counter" id="questionCounter">السؤال 1 / 20</div>
+                <div class="timer-display" id="timerDisplay">⏱️ 15ث</div>
                 <div class="live-score" id="liveScore">النقاط: 0</div>
             </div>
             
@@ -250,14 +347,32 @@ Creator Zidan Mohamed
 
         <div id="resultScreen">
             <h2>انتهى الاختبار! 🎉</h2>
-            <div class="final-score" id="finalScore">0 / 20</div>
-            <div id="feedbackText" style="font-size: 1.2rem; color: #94a3b8; margin-bottom: 20px;"></div>
+            <div class="final-score" id="finalScore">0 نقطة</div>
+            
+            <div class="stats-box">
+                <div class="stat-item">
+                    <span class="stat-value" id="correctCount" style="color: #10b981;">0</span>
+                    <span class="stat-label">إجابات صحيحة</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="wrongCount" style="color: #ef4444;">0</span>
+                    <span class="stat-label">إجابات خاطئة</span>
+                </div>
+            </div>
+
+            <div id="feedbackText" style="font-size: 1.1rem; color: #94a3b8; margin-bottom: 20px;"></div>
+            
+            <div class="leaderboard-container">
+                <div class="leaderboard-title">🏆 أبطال الكويز 🏆</div>
+                <div id="leaderboardList"></div>
+            </div>
+
             <button class="restart-btn" onclick="resetToHome()">العودة للقائمة الرئيسية</button>
         </div>
     </div>
 
     <script>
-        // إعدادات الصوت البرمجي (عشان مشنحتاجش ملفات صوت خارجية)
+        // إعدادات الصوت البرمجي
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         
         function playTone(freq, type, duration, vol = 0.1) {
@@ -274,19 +389,16 @@ Creator Zidan Mohamed
             oscillator.stop(audioCtx.currentTime + duration);
         }
 
-        // صوت الإجابة الصحيحة
         function playCorrectSound() {
             playTone(600, 'sine', 0.1, 0.1);
             setTimeout(() => playTone(800, 'sine', 0.15, 0.1), 100);
         }
 
-        // صوت الإجابة الخاطئة
         function playWrongSound() {
             playTone(250, 'sawtooth', 0.3, 0.05);
             setTimeout(() => playTone(200, 'sawtooth', 0.4, 0.05), 150);
         }
 
-        // تأثير الاحتفال البصري (الكونفيتي)
         function triggerConfetti() {
             confetti({
                 particleCount: 80,
@@ -296,7 +408,7 @@ Creator Zidan Mohamed
             });
         }
 
-        // بنك الأسئلة مقسم لـ 3 مستويات
+        // بنك الأسئلة (كما هو بدون تغيير)
         const questionBank = {
             easy: [
                 { q: "من هو آخر الأنبياء والرسل؟", options: ["عيسى عليه السلام", "موسى عليه السلام", "محمد صلى الله عليه وسلم", "إبراهيم عليه السلام"], answer: 2 },
@@ -392,25 +504,29 @@ Creator Zidan Mohamed
             ]
         };
 
+        // المتغيرات الجديدة
         let currentQuestionsList = [];
         let currentIndex = 0;
         let userScore = 0;
+        let correctAnswersCount = 0;
+        let wrongAnswersCount = 0;
+        let currentPlayerName = "";
+        
+        let timerInterval;
+        let timeLeft = 15;
 
-        // عناصر الـ HTML
         const screenLevel = document.getElementById('levelScreen');
         const screenQuiz = document.getElementById('quizScreen');
         const screenResult = document.getElementById('resultScreen');
         
         const labelCounter = document.getElementById('questionCounter');
         const labelScore = document.getElementById('liveScore');
+        const labelTimer = document.getElementById('timerDisplay');
         const labelQuestion = document.getElementById('questionText');
         const boxOptions = document.getElementById('optionsContainer');
         const btnNext = document.getElementById('nextBtn');
+        const inputName = document.getElementById('playerNameInput');
         
-        const labelFinalScore = document.getElementById('finalScore');
-        const labelFeedback = document.getElementById('feedbackText');
-
-        // دالة لخلط الأسئلة بشكل عشوائي
         function shuffleArray(array) {
             let currentIndex = array.length, randomIndex;
             while (currentIndex != 0) {
@@ -421,9 +537,16 @@ Creator Zidan Mohamed
             return array;
         }
 
-        // دالة بداية الكويز وتحديد المستوى
         function startQuiz(difficulty) {
-            if (audioCtx.state === 'suspended') audioCtx.resume(); // تفعيل الصوت مع أول ضغطة
+            // التأكد من إدخال الاسم
+            currentPlayerName = inputName.value.trim();
+            if(!currentPlayerName) {
+                alert("لازم تكتب اسمك الأول يا بطل عشان تتسجل في لوحة الشرف! ✍️");
+                inputName.focus();
+                return;
+            }
+
+            if (audioCtx.state === 'suspended') audioCtx.resume();
             
             let allQuestions = [...questionBank[difficulty]];
             let shuffledQuestions = shuffleArray(allQuestions);
@@ -431,6 +554,8 @@ Creator Zidan Mohamed
 
             currentIndex = 0;
             userScore = 0;
+            correctAnswersCount = 0;
+            wrongAnswersCount = 0;
             
             screenLevel.style.display = 'none';
             screenQuiz.style.display = 'block';
@@ -439,7 +564,6 @@ Creator Zidan Mohamed
             updateLiveScore(false);
         }
 
-        // دالة عرض السؤال الحالي
         function displayQuestion() {
             btnNext.style.display = 'none';
             boxOptions.innerHTML = '';
@@ -455,14 +579,55 @@ Creator Zidan Mohamed
                 btnChoice.onclick = () => verifyAnswer(i, btnChoice);
                 boxOptions.appendChild(btnChoice);
             });
+
+            // تشغيل التايمر
+            startTimer();
         }
 
-        // دالة التأكد من الإجابة
-        function verifyAnswer(selectedIndex, clickedBtn) {
+        function startTimer() {
+            clearInterval(timerInterval);
+            timeLeft = 15;
+            labelTimer.innerText = `⏱️ ${timeLeft}ث`;
+            labelTimer.style.color = '#10b981';
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                labelTimer.innerText = `⏱️ ${timeLeft}ث`;
+                
+                if(timeLeft <= 5) {
+                    labelTimer.style.color = '#ef4444'; // لون أحمر لما الوقت يقل
+                }
+
+                if(timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    handleTimeOut();
+                }
+            }, 1000);
+        }
+
+        function handleTimeOut() {
+            playWrongSound();
+            wrongAnswersCount++;
+            
             const qData = currentQuestionsList[currentIndex];
             const allChoiceBtns = boxOptions.children;
 
-            // إيقاف كل الأزرار
+            // إظهار الإجابة الصحيحة وقفل الأزرار
+            for(let j = 0; j < allChoiceBtns.length; j++) {
+                allChoiceBtns[j].disabled = true;
+                if (j === qData.answer) {
+                    allChoiceBtns[j].classList.add('correct');
+                }
+            }
+            btnNext.style.display = 'inline-block';
+        }
+
+        function verifyAnswer(selectedIndex, clickedBtn) {
+            clearInterval(timerInterval); // إيقاف التايمر بمجرد الإجابة
+            
+            const qData = currentQuestionsList[currentIndex];
+            const allChoiceBtns = boxOptions.children;
+
             for(let j = 0; j < allChoiceBtns.length; j++) {
                 allChoiceBtns[j].disabled = true;
                 if (j === qData.answer) {
@@ -470,13 +635,17 @@ Creator Zidan Mohamed
                 }
             }
 
-            // حساب النتيجة وتشغيل التأثيرات
             if (selectedIndex === qData.answer) {
-                userScore++;
+                correctAnswersCount++;
+                // 50 نقطة أساسية + 10 نقطة على كل ثانية متبقية
+                let pointsEarned = 50 + (timeLeft * 10);
+                userScore += pointsEarned;
+                
                 updateLiveScore(true);
                 playCorrectSound();
                 triggerConfetti();
             } else {
+                wrongAnswersCount++;
                 clickedBtn.classList.add('wrong');
                 playWrongSound();
             }
@@ -484,7 +653,6 @@ Creator Zidan Mohamed
             btnNext.style.display = 'inline-block';
         }
 
-        // تحديث النقاط مع تأثير بصري خفيف للرقم
         function updateLiveScore(animate) {
             labelScore.innerText = `النقاط: ${userScore}`;
             if (animate) {
@@ -493,7 +661,6 @@ Creator Zidan Mohamed
             }
         }
 
-        // السؤال التالي
         function goToNextQuestion() {
             currentIndex++;
             if (currentIndex < currentQuestionsList.length) {
@@ -503,29 +670,63 @@ Creator Zidan Mohamed
             }
         }
 
-        // إنهاء الكويز
         function finishQuiz() {
             screenQuiz.style.display = 'none';
             screenResult.style.display = 'block';
             
-            labelFinalScore.innerText = `${userScore} / ${currentQuestionsList.length}`;
+            document.getElementById('finalScore').innerText = `${userScore} نقطة`;
+            document.getElementById('correctCount').innerText = correctAnswersCount;
+            document.getElementById('wrongCount').innerText = wrongAnswersCount;
             
-            if(userScore >= 18) {
-                labelFeedback.innerText = "عاش جداً! معلوماتك ممتازة 🌟";
-                // احتفال كبير في النهاية لو جاب مجموع عالي
+            const labelFeedback = document.getElementById('feedbackText');
+            if(correctAnswersCount >= 18) {
+                labelFeedback.innerText = "عاش جداً! معلوماتك ممتازة وسريع كمان 🌟";
                 let endConfetti = setInterval(triggerConfetti, 500);
                 setTimeout(() => clearInterval(endConfetti), 2500);
-            } else if(userScore >= 10) {
+            } else if(correctAnswersCount >= 10) {
                 labelFeedback.innerText = "أداؤك جيد، بس تقدر تجيب أحسن من كده 👍";
             } else {
                 labelFeedback.innerText = "محتاج تراجع معلوماتك أكتر يا بطل، حاول تاني 💪";
             }
+
+            saveAndDisplayLeaderboard();
         }
 
-        // العودة للرئيسية
+        function saveAndDisplayLeaderboard() {
+            // جلب البيانات القديمة من المتصفح
+            let leaderboard = JSON.parse(localStorage.getItem('islamicQuizLeaderboard')) || [];
+            
+            // إضافة النتيجة الجديدة
+            leaderboard.push({ name: currentPlayerName, score: userScore });
+            
+            // ترتيب تنازلي حسب النقاط
+            leaderboard.sort((a, b) => b.score - a.score);
+            
+            // حفظ التحديث
+            localStorage.setItem('islamicQuizLeaderboard', JSON.stringify(leaderboard));
+            
+            // عرض أعلى 3 فقط
+            const top3 = leaderboard.slice(0, 3);
+            const listContainer = document.getElementById('leaderboardList');
+            listContainer.innerHTML = '';
+
+            const medals = ['🥇', '🥈', '🥉'];
+            const classes = ['rank-1', 'rank-2', 'rank-3'];
+
+            top3.forEach((player, index) => {
+                listContainer.innerHTML += `
+                    <div class="leaderboard-item ${classes[index]}">
+                        <span>${medals[index]} ${player.name}</span>
+                        <span>${player.score} نقطة</span>
+                    </div>
+                `;
+            });
+        }
+
         function resetToHome() {
             screenResult.style.display = 'none';
             screenLevel.style.display = 'flex';
+            inputName.value = ''; // تفريغ الاسم لبداية جديدة
         }
 
     </script>
