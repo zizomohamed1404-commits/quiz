@@ -1,5 +1,5 @@
 Weaa Academy/
-Creator Zidan Mohamed
+Creator Zidane Mohamed
 
 <html lang="ar" dir="rtl">
 <head>
