@@ -1,7 +1,5 @@
 Weaa Academy/
 Creator Zidane Mohamed
-Weaa Academy/
-Creator Zidane Mohamed
 
 <html lang="ar" dir="rtl">
 <head>
