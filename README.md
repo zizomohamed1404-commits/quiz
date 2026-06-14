@@ -1,6 +1,6 @@
 Weaa Academy/
 Creator Zidane Mohamed
-
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -302,20 +302,6 @@ Creator Zidane Mohamed
         }
 
         .restart-btn:hover { background-color: #2563eb; }
-
-        .credits {
-            position: fixed;
-            bottom: 15px;
-            left: 15px;
-            color: #94a3b8;
-            font-size: 0.85rem;
-            direction: ltr;
-            background-color: rgba(30, 41, 59, 0.8);
-            padding: 5px 10px;
-            border-radius: 8px;
-            z-index: 1000;
-            border: 1px solid #334155;
-        }
     </style>
 </head>
 <body>
@@ -408,7 +394,7 @@ Creator Zidane Mohamed
             });
         }
 
-        // بنك الأسئلة (كما هو بدون تغيير)
+        // بنك الأسئلة بالكامل
         const questionBank = {
             easy: [
                 { q: "من هو آخر الأنبياء والرسل؟", options: ["عيسى عليه السلام", "موسى عليه السلام", "محمد صلى الله عليه وسلم", "إبراهيم عليه السلام"], answer: 2 },
@@ -441,36 +427,7 @@ Creator Zidane Mohamed
                 { q: "ما هي السورة التي تحمي قارئها من الدجال؟", options: ["الملك", "الكهف", "البقرة", "آل عمران"], answer: 1 },
                 { q: "أين ولد النبي محمد صلى الله عليه وسلم؟", options: ["المدينة المنورة", "الطائف", "مكة المكرمة", "الشام"], answer: 2 },
                 { q: "ما هو اللقب الذي أطلق على النبي محمد قبل البعثة؟", options: ["الصادق الأمين", "الفاروق", "ذو النورين", "سيف الله"], answer: 0 }
-           ,{ q: "ما هو اسم خازن الجنة؟", options: ["رضوان", "مالك", "جبريل", "إسرافيل"], answer: 0 },
-                { q: "ما هو اللون الذي يُستحب فيه الإحرام للرجال؟", options: ["الأبيض", "الأسود", "الأخضر", "الأصفر"], answer: 0 },
-                { q: "كم عدد أركان الصلاة؟", options: ["12 ركن", "14 ركن", "15 ركن", "10 أركان"], answer: 1 },
-                { q: "ما هي أول آية في القرآن الكريم؟", options: ["بسم الله الرحمن الرحيم", "الحمد لله رب العالمين", "اقرأ باسم ربك الذي خلق", "ألم"], answer: 0 },
-                { q: "من هو النبي الذي سخر الله له الريح؟", options: ["داود", "سليمان", "يوسف", "أيوب"], answer: 1 },
-                { q: "ما معنى اسم (الفرقان)؟", options: ["القرآن", "التوراة", "الصحف", "الإنجيل"], answer: 0 },
-                { q: "ما هو اسم والدة النبي إبراهيم؟", options: ["أميرة", "سارة", "هاجر", "لا تُذكر في القرآن"], answer: 3 },
-                { q: "ماذا كان يعمل النبي محمد قبل البعثة؟", options: ["النجارة", "التجارة ورعي الغنم", "الزراعة", "الحدادة"], answer: 1 },
-                { q: "ما هي الصلاة التي تُصلى يوم العيد؟", options: ["صلاة الكسوف", "صلاة الاستسقاء", "صلاة العيد", "صلاة التراويح"], answer: 2 },
-                { q: "ما هو عدد أيام شهر ذي الحجة قبل يوم عرفة؟", options: ["8 أيام", "9 أيام", "10 أيام", "7 أيام"], answer: 1 },
-                { q: "من هو أول من آمن من الصبيان؟", options: ["علي بن أبي طالب", "زيد بن حارثة", "أبو بكر الصديق", "عثمان بن عفان"], answer: 0 },
-                { q: "كم عدد سنوات الهجرة التي قضاها النبي في المدينة؟", options: ["10 سنوات", "13 سنة", "15 سنة", "23 سنة"], answer: 0 },
-                { q: "ما اسم الصحابي الذي كان يؤذن في عهد النبي؟", options: ["بلال بن رباح", "أبو محذورة", "سعد القرظ", "جميع ما سبق"], answer: 3 },
-                { q: "أين توفي النبي محمد؟", options: ["مكة", "المدينة", "الطائف", "خيبر"], answer: 1 },
-                { q: "ما هو اسم السورة التي لا تبدأ بالبسملة؟", options: ["التوبة", "الأنفال", "يونس", "هود"], answer: 0 },
-                { q: "كم مرة ذكر اسم (موسى) في القرآن؟", options: ["100 مرة", "136 مرة", "50 مرة", "200 مرة"], answer: 1 },
-                { q: "ما هو الركن الذي لا يصح الحج بدونه؟", options: ["الطواف", "الوقوف بعرفة", "السعي", "رمي الجمرات"], answer: 1 },
-                { q: "من هو النبي الذي لُقب بـ (ذبيح الله)؟", options: ["إسماعيل", "إسحاق", "يوسف", "يعقوب"], answer: 0 },
-                { q: "ما اسم زوجة النبي التي كانت صوامة قوامة؟", options: ["حفصة", "عائشة", "سودة", "زينب"], answer: 0 },
-                { q: "ما هي أول ليلة في القبر؟", options: ["ليلة الوحشة", "ليلة السؤال", "ليلة العرس", "ليلة القدر"], answer: 1 },
-                { q: "كم يوماً في السنة القمرية؟", options: ["354 أو 355", "365", "366", "350"], answer: 0 },
-                { q: "من هو الصحابي الذي اهتز لموته عرش الرحمن؟", options: ["سعد بن معاذ", "حمزة", "أبو بكر", "عمر"], answer: 0 },
-                { q: "ما اسم النبي الذي كان يكلم الله؟", options: ["موسى", "عيسى", "إبراهيم", "نوح"], answer: 0 },
-                { q: "هل يجوز الصيام في يوم العيد؟", options: ["نعم", "لا", "مكروه", "مستحب"], answer: 1 },
-                { q: "ما هو أكثر اسم تكرر في القرآن؟", options: ["محمد", "موسى", "إبراهيم", "آدم"], answer: 1 },
-                { q: "من الذي أهلكهم الله بالصيحة؟", options: ["قوم ثمود", "قوم لوط", "قوم عاد", "قوم فرعون"], answer: 0 },
-                { q: "ما هو اسم خازن النار؟", options: ["مالك", "رضوان", "جبريل", "إسرافيل"], answer: 0 },
-                { q: "ما هي أطول سورة في القرآن؟", options: ["البقرة", "آل عمران", "النساء", "المائدة"], answer: 0 },
-                { q: "ما اسم القبر الذي دفن فيه النبي؟", options: ["حجرة عائشة", "البقيع", "المسجد النبوي", "ليس له قبر"], answer: 0 },
-                { q: "ما هو اسم الصحابي الذي رافق النبي في الهجرة؟", options: ["أبو بكر", "عمر", "علي", "عثمان"], answer: 0 } ],
+            ],
             medium: [
                 { q: "ما هي السورة التي تُسمى (قلب القرآن)؟", options: ["سورة يس", "سورة الرحمن", "سورة تبارك", "سورة الكهف"], answer: 0 },
                 { q: "من هو الصحابي الجليل الملقب بـ (سيف الله المسلول)؟", options: ["حمزة بن عبد المطلب", "خالد بن الوليد", "سعد بن معاذ", "أبو عبيدة بن الجراح"], answer: 1 },
@@ -499,37 +456,10 @@ Creator Zidane Mohamed
                 { q: "في أي سنة فرض الصيام على المسلمين؟", options: ["السنة الأولى للهجرة", "السنة الثانية للهجرة", "السنة الثالثة للهجرة", "السنة الرابعة للهجرة"], answer: 1 },
                 { q: "من هو كافل السيدة مريم عليها السلام؟", options: ["زكريا", "يحيى", "عيسى", "موسى"], answer: 0 },
                 { q: "ما اسم الشجرة التي تنبت في قعر جهنم؟", options: ["شجرة الزيتون", "شجرة الزقوم", "شجرة التين", "شجرة الغرقد"], answer: 1 },
-                { q: "من هو النبي الذي ألقي في النار ولم تحرقه؟", options: ["موسى", "إبراهيم", "يوسف", "يونس"], answer: 1 }
-           ,{ q: "ما هي الغزوة التي كانت قبل غزوة الخندق؟", options: ["أحد", "بدر", "أحزاب", "بني المصطلق"], answer: 3 },
-                { q: "من هو الصحابي الذي أشار على النبي بجمع القرآن؟", options: ["عمر بن الخطاب", "أبو بكر", "عثمان", "علي"], answer: 0 },
-                { q: "ما هي الدولة التي فتحت في عهد عمر بن الخطاب؟", options: ["فارس", "الروم", "مصر", "كل ما سبق"], answer: 3 },
-                { q: "من هو النبي الذي أرسل إلى قوم (مدين)؟", options: ["شعيب", "هود", "صالح", "لوط"], answer: 0 },
-                { q: "كم عدد الركعات في صلاة الكسوف؟", options: ["2", "4", "6", "8"], answer: 0 },
-                { q: "ما اسم الصحابية التي كانت تكتب وتعرف الكتابة؟", options: ["الشفاء بنت عبد الله", "عائشة", "حفصة", "أم سلمة"], answer: 0 },
-                { q: "من هو أول سفير في الإسلام؟", options: ["مصعب بن عمير", "أبو بكر", "عمر", "علي"], answer: 0 },
-                { q: "في أي عام كان صلح الحديبية؟", options: ["5 هـ", "6 هـ", "7 هـ", "8 هـ"], answer: 1 },
-                { q: "ما اسم زوجة النبي التي توفيت في حياته غير خديجة؟", options: ["زينب بنت خزيمة", "سودة", "أم سلمة", "جويرية"], answer: 0 },
-                { q: "من هو الصحابي الذي كان يلقب بـ (ذو النورين)؟", options: ["عثمان", "عمر", "أبو بكر", "علي"], answer: 0 },
-                { q: "كم عدد الغزوات التي شارك فيها علي بن أبي طالب؟", options: ["كل الغزوات ما عدا تبوك", "بدر فقط", "أحد فقط", "الخندق فقط"], answer: 0 },
-                { q: "ما هو اسم النبي الذي أتاه الله الحكمة وهو صبي؟", options: ["يحيى", "عيسى", "موسى", "يوسف"], answer: 0 },
-                { q: "كم عدد السجدات في القرآن الكريم؟", options: ["14", "15", "16", "17"], answer: 1 },
-                { q: "من هو الصحابي الذي لُقب بـ (سيف الله المسلول)؟", options: ["خالد بن الوليد", "حمزة", "علي", "أبو بكر"], answer: 0 },
-                { q: "في أي سورة وردت قصة (أصحاب الكهف)؟", options: ["الكهف", "الإسراء", "مريم", "طه"], answer: 0 },
-                { q: "كم كان عمر النبي عندما توفيت أمه؟", options: ["6 سنوات", "8 سنوات", "10 سنوات", "12 سنة"], answer: 0 },
-                { q: "ما هو اسم الغار الذي كان يتعبد فيه النبي؟", options: ["حراء", "ثور", "جبل النور", "لا شيء"], answer: 0 },
-                { q: "ما اسم الملك الذي كان يوحي للأنبياء؟", options: ["جبريل", "ميكائيل", "إسرافيل", "مالك"], answer: 0 },
-                { q: "من الذي قتل الصحابي حمزة بن عبد المطلب؟", options: ["وحشي بن حرب", "أبو جهل", "عتبة", "شيبة"], answer: 0 },
-                { q: "كم استمر الحصار في شعب أبي طالب؟", options: ["3 سنوات", "2 سنة", "4 سنوات", "5 سنوات"], answer: 0 },
-                { q: "من هو الصحابي الذي كان يحمل مفتاح الكعبة؟", options: ["عثمان بن طلحة", "أبو بكر", "علي", "عمر"], answer: 0 },
-                { q: "في أي مدينة توفي الصحابي بلال بن رباح؟", options: ["دمشق", "المدينة", "مكة", "القدس"], answer: 0 },
-                { q: "ما اسم السورة التي تسمى (السبع المثاني)؟", options: ["الفاتحة", "البقرة", "يس", "الرحمن"], answer: 0 },
-                { q: "من هو الصحابي الذي استشهد في معركة اليمامة؟", options: ["زيد بن الخطاب", "عمر", "عثمان", "علي"], answer: 0 },
-                { q: "ما اسم ناقة الرسول في الهجرة؟", options: ["القصواء", "الجدعاء", "العضباء", "لا شيء"], answer: 0 },
-                { q: "كم عدد مرات الحج التي حجها النبي؟", options: ["مرة واحدة", "مرتان", "ثلاث مرات", "لم يحج"], answer: 0 },
-                { q: "من هو الصحابي الذي كان يلقب بـ (أمين الأمة)؟", options: ["أبو عبيدة بن الجراح", "أبو بكر", "عمر", "علي"], answer: 0 },
-                { q: "ما اسم زوجة فرعون التي آمنت؟", options: ["آسية", "مريم", "سارة", "هاجر"], answer: 0 },
-                { q: "كم عدد السنوات التي قضاها النبي في مكة؟", options: ["13 سنة", "10 سنوات", "15 سنة", "23 سنة"], answer: 0 },
-                { q: "من هو الذي أشار على النبي بحفر الخندق؟", options: ["سلمان الفارسي", "عمر", "أبو بكر", "علي"], answer: 0 } ],
+                { q: "من هو النبي الذي ألقي في النار ولم تحرقه؟", options: ["موسى", "إبراهيم", "يوسف", "يونس"], answer: 1 },
+                { q: "ما هي الغزوة التي كانت قبل غزوة الخندق؟", options: ["أحد", "بدر", "أحزاب", "بني المصطلق"], answer: 3 },
+                { q: "من هو الصحابي الذي أشار على النبي بجمع القرآن؟", options: ["عمر بن الخطاب", "أبو بكر", "عثمان", "علي"], answer: 0 }
+            ],
             hard: [
                 { q: "ما هي أطول سورة في القرآن الكريم؟", options: ["سورة البقرة", "سورة آل عمران", "سورة النساء", "سورة الأعراف"], answer: 0 },
                 { q: "ما هي السورة التي وردت فيها (البسملة) مرتين؟", options: ["سورة النمل", "سورة القصص", "سورة النحل", "سورة هود"], answer: 0 },
@@ -557,268 +487,192 @@ Creator Zidane Mohamed
                 { q: "في أي غزوة قطعت يد الصحابي جعفر بن أبي طالب؟", options: ["غزوة بدر", "غزوة أحد", "غزوة مؤتة", "غزوة تبوك"], answer: 2 },
                 { q: "ما هي السورة التي تسمى الفاضحة؟", options: ["سورة التوبة", "سورة الأحزاب", "سورة المنافقون", "سورة النور"], answer: 0 },
                 { q: "من هو النبي الذي سخر الله له الجبال تسبح معه؟", options: ["سليمان", "داود", "أيوب", "يونس"], answer: 1 },
-                { q: "كم كان عدد المسلمين في غزوة بدر؟", options: ["300", "313", "1000", "700"], answer: 1 },
-                { q: "ما هي السورة التي ذكرت فيها البسملة في منتصفها؟", options: ["سورة النمل", "سورة التوبة", "سورة الإسراء", "سورة الكهف"], answer: 0 }
-       ,{ q: "من هو الصحابي الذي كان يكتب الوحي للنبي؟", options: ["زيد بن ثابت", "معاوية", "أبي بن كعب", "كل ما سبق"], answer: 3 },
-                { q: "في أي سنة فرض الصيام؟", options: ["2 هـ", "3 هـ", "4 هـ", "5 هـ"], answer: 0 },
-                { q: "ما اسم النبي الذي لُقب بـ (إسرائيل)؟", options: ["يعقوب", "يوسف", "إسحاق", "إبراهيم"], answer: 0 },
-                { q: "كم عدد الركعات في صلاة الوتر؟", options: ["1 أو 3", "2 أو 4", "3 أو 5", "5 أو 7"], answer: 0 },
-                { q: "من هو الصحابي الذي كان صوته يعادل جيشاً؟", options: ["ثابت بن قيس", "حمزة", "علي", "أبو بكر"], answer: 0 },
-                { q: "ما اسم المرأة التي حاولت تسميم النبي؟", options: ["زينب بنت الحارث", "هند بنت عتبة", "أم جميل", "أروى"], answer: 0 },
-                { q: "من القائد في معركة ذات الصواري؟", options: ["عبد الله بن أبي السرح", "خالد بن الوليد", "عمرو بن العاص", "أبو عبيدة"], answer: 0 },
-                { q: "كم كان عدد جيش المسلمين في غزوة تبوك؟", options: ["30 ألف", "20 ألف", "40 ألف", "50 ألف"], answer: 0 },
-                { q: "من هو الصحابي الذي لقب بـ (شهيد الحج)؟", options: ["عمر بن الخطاب", "عثمان بن عفان", "عمر بن عبد العزيز", "لا أحد"], answer: 0 },
-                { q: "في أي سنة استشهد حمزة بن عبد المطلب؟", options: ["3 هـ", "2 هـ", "4 هـ", "5 هـ"], answer: 0 },
-                { q: "من الصحابي الذي أسلم وشهد بدراً وأحداً والحديبية؟", options: ["عثمان بن عفان", "أبو بكر", "عمر", "علي"], answer: 0 },
-                { q: "من هو الذي كلف بجمع القرآن في عهد عثمان؟", options: ["زيد بن ثابت", "عبد الله بن مسعود", "أبي بن كعب", "علي"], answer: 0 },
-                { q: "ما اسم الغلام الذي كان يرعى الغنم للنبي؟", options: ["عامر بن فهيرة", "أنس", "عبد الله بن مسعود", "زيد"], answer: 0 },
-                { q: "من هو الصحابي الذي كان ينام ولا ينام قلبه؟", options: ["النبي محمد", "علي", "أبو بكر", "عمر"], answer: 0 },
-                { q: "ما هي السورة التي ذكرت فيها البسملة مرتين؟", options: ["النمل", "النحل", "القصص", "هود"], answer: 0 },
-                { q: "من القائد الذي فتح بلاد فارس؟", options: ["سعد بن أبي وقاص", "خالد بن الوليد", "عمرو بن العاص", "أبو عبيدة"], answer: 0 },
-                { q: "في أي سورة وردت قصة أصحاب الأخدود؟", options: ["البروج", "الانشقاق", "التكوير", "الطارق"], answer: 0 },
-                { q: "ما اسم الشجرة التي بايع الصحابة تحتها؟", options: ["سمرة", "طلح", "أثل", "نخلة"], answer: 0 },
-                { q: "من الصحابي الذي رأى الملائكة تُغسله يوم استشهد؟", options: ["حنظلة بن أبي عامر", "عبد الله بن جحش", "سعد بن معاذ", "مصعب بن عمير"], answer: 0 },
-                { q: "من هو الصحابي الذي لقب بـ (الطيار في الجنة)؟", options: ["جعفر بن أبي طالب", "عبد الله بن رواحة", "زيد بن حارثة", "حمزة"], answer: 0 },
-                { q: "من هو النبي الذي سأله قومه أن ينزل عليهم مائدة؟", options: ["عيسى", "موسى", "إبراهيم", "نوح"], answer: 0 },
-                { q: "ما اسم وادي بدر؟", options: ["وادي الصفراء", "وادي النخلة", "وادي العقيق", "وادي عسفان"], answer: 0 },
-                { q: "كم استمرت مقاطعة قريش للمسلمين؟", options: ["3 سنوات", "سنتان", "4 سنوات", "5 سنوات"], answer: 0 },
-                { q: "ما اسم السيف الذي كان يُعرف بـ (ذي الفقار)؟", options: ["سيف علي بن أبي طالب", "سيف النبي", "سيف خالد", "سيف عمر"], answer: 0 },
-                { q: "من الذي أشار على النبي بتغيير موقع المعسكر في بدر؟", options: ["الحباب بن المنذر", "سعد بن معاذ", "عمر", "سلمان الفارسي"], answer: 0 },
-                { q: "في أي سورة ذُكرت قصة ذي القرنين؟", options: ["الكهف", "يوسف", "الإسراء", "طه"], answer: 0 },
-                { q: "من الصحابي الذي هاجر جهراً وأمام قريش؟", options: ["عمر بن الخطاب", "أبو بكر", "علي", "عثمان"], answer: 0 },
-                { q: "ما اسم الغلام الذي كان يحرس غنم النبي؟", options: ["عامر بن فهيرة", "أنس", "عبد الله بن مسعود", "زيد"], answer: 0 },
-                { q: "من هو الذي أشار على النبي بحفر الخندق من الصحابة؟", options: ["سلمان الفارسي", "عمر", "حذيفة", "أبو بكر"], answer: 0 },
-                { q: "كم كان عدد المسلمين يوم فتح مكة؟", options: ["10 آلاف", "5 آلاف", "15 ألف", "20 ألف"], answer: 0 }     ]
+                { q: "كم كان عدد المسلمين في غزوة بدر؟", options: ["300", "313", "1000", "3000"], answer: 1 },
+                { q: "من هو أول من سل سيفاً في سبيل الله؟", options: ["الزبير بن العوام", "علي بن أبي طالب", "المقداد بن عمرو", "حمزة بن عبد المطلب"], answer: 0 },
+                { q: "في أي سورة ذُكرت قصة ذي القرنين؟", options: ["سورة الكهف", "سورة يوسف", "سورة البقرة", "سورة الأنبياء"], answer: 0 },
+                { q: "ما هي الغزوة التي جُرح فيها النبي وكُسرت رَباعيته؟", options: ["غزوة بدر", "غزوة أحد", "غزوة الخندق", "غزوة حنين"], answer: 1 }
+            ]
         };
 
-        // المتغيرات الجديدة
-        let currentQuestionsList = [];
-        let currentIndex = 0;
-        let userScore = 0;
-        let correctAnswersCount = 0;
-        let wrongAnswersCount = 0;
-        let currentPlayerName = "";
-        
+        // المتغيرات الأساسية للكويز
+        let currentQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let correctCount = 0;
+        let wrongCount = 0;
         let timerInterval;
         let timeLeft = 15;
+        let playerName = "";
 
-        const screenLevel = document.getElementById('levelScreen');
-        const screenQuiz = document.getElementById('quizScreen');
-        const screenResult = document.getElementById('resultScreen');
-        
-        const labelCounter = document.getElementById('questionCounter');
-        const labelScore = document.getElementById('liveScore');
-        const labelTimer = document.getElementById('timerDisplay');
-        const labelQuestion = document.getElementById('questionText');
-        const boxOptions = document.getElementById('optionsContainer');
-        const btnNext = document.getElementById('nextBtn');
-        const inputName = document.getElementById('playerNameInput');
-        
-        function shuffleArray(array) {
-            let currentIndex = array.length, randomIndex;
-            while (currentIndex != 0) {
-                randomIndex = Math.floor(Math.random() * currentIndex);
-                currentIndex--;
-                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-            }
-            return array;
+        // بدء الكويز
+        function startQuiz(level) {
+            const nameInput = document.getElementById('playerNameInput').value.trim();
+            playerName = nameInput !== "" ? nameInput : "بطل مجهول";
+            
+            // جلب الأسئلة بناءً على المستوى، ترتيبها عشوائياً، ثم اختيار 20 سؤال
+            let allQuestions = [...questionBank[level]];
+            allQuestions.sort(() => Math.random() - 0.5);
+            currentQuestions = allQuestions.slice(0, 20);
+
+            currentQuestionIndex = 0;
+            score = 0;
+            correctCount = 0;
+            wrongCount = 0;
+
+            document.getElementById('levelScreen').style.display = 'none';
+            document.getElementById('resultScreen').style.display = 'none';
+            document.getElementById('quizScreen').style.display = 'block';
+            document.getElementById('liveScore').innerText = `النقاط: ${score}`;
+
+            loadQuestion();
         }
 
-        function startQuiz(difficulty) {
-            // التأكد من إدخال الاسم
-            currentPlayerName = inputName.value.trim();
-            if(!currentPlayerName) {
-                alert("لازم تكتب اسمك الأول يا بطل عشان تتسجل في لوحة الشرف! ✍️");
-                inputName.focus();
-                return;
-            }
-
-            if (audioCtx.state === 'suspended') audioCtx.resume();
+        // تحميل وعرض السؤال
+        function loadQuestion() {
+            clearInterval(timerInterval);
+            timeLeft = 15;
+            document.getElementById('timerDisplay').innerText = `⏱️ ${timeLeft}ث`;
+            document.getElementById('nextBtn').style.display = 'none';
             
-            let allQuestions = [...questionBank[difficulty]];
-            let shuffledQuestions = shuffleArray(allQuestions);
-            currentQuestionsList = shuffledQuestions.slice(0, 20);
-
-            currentIndex = 0;
-            userScore = 0;
-            correctAnswersCount = 0;
-            wrongAnswersCount = 0;
+            document.getElementById('questionCounter').innerText = `السؤال ${currentQuestionIndex + 1} / ${currentQuestions.length}`;
             
-            screenLevel.style.display = 'none';
-            screenQuiz.style.display = 'block';
+            const q = currentQuestions[currentQuestionIndex];
+            document.getElementById('questionText').innerText = q.q;
             
-            displayQuestion();
-            updateLiveScore(false);
-        }
-
-        function displayQuestion() {
-            btnNext.style.display = 'none';
-            boxOptions.innerHTML = '';
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
             
-            const qData = currentQuestionsList[currentIndex];
-            labelCounter.innerText = `السؤال ${currentIndex + 1} / ${currentQuestionsList.length}`;
-            labelQuestion.innerText = qData.q;
-
-            qData.options.forEach((choiceText, i) => {
-                const btnChoice = document.createElement('button');
-                btnChoice.classList.add('option-btn');
-                btnChoice.innerText = choiceText;
-                btnChoice.onclick = () => verifyAnswer(i, btnChoice);
-                boxOptions.appendChild(btnChoice);
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = opt;
+                btn.onclick = () => checkAnswer(btn, index);
+                optionsContainer.appendChild(btn);
             });
 
-            // تشغيل التايمر
             startTimer();
         }
 
+        // تشغيل المؤقت
         function startTimer() {
-            clearInterval(timerInterval);
-            timeLeft = 15;
-            labelTimer.innerText = `⏱️ ${timeLeft}ث`;
-            labelTimer.style.color = '#10b981';
-
             timerInterval = setInterval(() => {
                 timeLeft--;
-                labelTimer.innerText = `⏱️ ${timeLeft}ث`;
-                
-                if(timeLeft <= 5) {
-                    labelTimer.style.color = '#ef4444'; // لون أحمر لما الوقت يقل
-                }
-
+                document.getElementById('timerDisplay').innerText = `⏱️ ${timeLeft}ث`;
                 if(timeLeft <= 0) {
                     clearInterval(timerInterval);
-                    handleTimeOut();
+                    handleTimeout();
                 }
             }, 1000);
         }
 
-        function handleTimeOut() {
+        // عند انتهاء الوقت
+        function handleTimeout() {
             playWrongSound();
-            wrongAnswersCount++;
-            
-            const qData = currentQuestionsList[currentIndex];
-            const allChoiceBtns = boxOptions.children;
-
-            // إظهار الإجابة الصحيحة وقفل الأزرار
-            for(let j = 0; j < allChoiceBtns.length; j++) {
-                allChoiceBtns[j].disabled = true;
-                if (j === qData.answer) {
-                    allChoiceBtns[j].classList.add('correct');
-                }
-            }
-            btnNext.style.display = 'inline-block';
+            wrongCount++;
+            disableOptions();
+            showCorrectAnswer();
+            document.getElementById('nextBtn').style.display = 'block';
         }
 
-        function verifyAnswer(selectedIndex, clickedBtn) {
-            clearInterval(timerInterval); // إيقاف التايمر بمجرد الإجابة
+        // فحص الإجابة
+        function checkAnswer(selectedBtn, selectedIndex) {
+            clearInterval(timerInterval);
+            disableOptions();
             
-            const qData = currentQuestionsList[currentIndex];
-            const allChoiceBtns = boxOptions.children;
-
-            for(let j = 0; j < allChoiceBtns.length; j++) {
-                allChoiceBtns[j].disabled = true;
-                if (j === qData.answer) {
-                    allChoiceBtns[j].classList.add('correct');
-                }
-            }
-
-            if (selectedIndex === qData.answer) {
-                correctAnswersCount++;
-                // 50 نقطة أساسية + 10 نقطة على كل ثانية متبقية
-                let pointsEarned = 50 + (timeLeft * 10);
-                userScore += pointsEarned;
-                
-                updateLiveScore(true);
+            const q = currentQuestions[currentQuestionIndex];
+            if(selectedIndex === q.answer) {
+                selectedBtn.classList.add('correct');
                 playCorrectSound();
-                triggerConfetti();
+                score += 10;
+                correctCount++;
+                
+                const scoreDisplay = document.getElementById('liveScore');
+                scoreDisplay.innerText = `النقاط: ${score}`;
+                scoreDisplay.classList.add('bump');
+                setTimeout(() => scoreDisplay.classList.remove('bump'), 200);
             } else {
-                wrongAnswersCount++;
-                clickedBtn.classList.add('wrong');
+                selectedBtn.classList.add('wrong');
                 playWrongSound();
+                wrongCount++;
+                showCorrectAnswer();
             }
-
-            btnNext.style.display = 'inline-block';
+            
+            document.getElementById('nextBtn').style.display = 'block';
         }
 
-        function updateLiveScore(animate) {
-            labelScore.innerText = `النقاط: ${userScore}`;
-            if (animate) {
-                labelScore.classList.add('bump');
-                setTimeout(() => labelScore.classList.remove('bump'), 200);
-            }
+        // إيقاف تفاعل الأزرار
+        function disableOptions() {
+            const btns = document.querySelectorAll('.option-btn');
+            btns.forEach(btn => btn.disabled = true);
         }
 
+        // إظهار الإجابة الصحيحة
+        function showCorrectAnswer() {
+            const q = currentQuestions[currentQuestionIndex];
+            const btns = document.querySelectorAll('.option-btn');
+            btns[q.answer].classList.add('correct');
+        }
+
+        // الانتقال للسؤال التالي
         function goToNextQuestion() {
-            currentIndex++;
-            if (currentIndex < currentQuestionsList.length) {
-                displayQuestion();
+            currentQuestionIndex++;
+            if(currentQuestionIndex < currentQuestions.length) {
+                loadQuestion();
             } else {
-                finishQuiz();
+                showResult();
             }
         }
 
-        function finishQuiz() {
-            screenQuiz.style.display = 'none';
-            screenResult.style.display = 'block';
+        // إظهار النتائج النهائية
+        function showResult() {
+            document.getElementById('quizScreen').style.display = 'none';
+            document.getElementById('resultScreen').style.display = 'block';
             
-            document.getElementById('finalScore').innerText = `${userScore} نقطة`;
-            document.getElementById('correctCount').innerText = correctAnswersCount;
-            document.getElementById('wrongCount').innerText = wrongAnswersCount;
+            document.getElementById('finalScore').innerText = `${score} نقطة`;
+            document.getElementById('correctCount').innerText = correctCount;
+            document.getElementById('wrongCount').innerText = wrongCount;
             
-            const labelFeedback = document.getElementById('feedbackText');
-            if(correctAnswersCount >= 18) {
-                labelFeedback.innerText = "عاش جداً! معلوماتك ممتازة وسريع كمان 🌟";
-                let endConfetti = setInterval(triggerConfetti, 500);
-                setTimeout(() => clearInterval(endConfetti), 2500);
-            } else if(correctAnswersCount >= 10) {
-                labelFeedback.innerText = "أداؤك جيد، بس تقدر تجيب أحسن من كده 👍";
+            const feedbackBox = document.getElementById('feedbackText');
+            if(correctCount >= 15) {
+                feedbackBox.innerText = "ممتاز! معلوماتك الإسلامية رائعة جداً 🌟";
+                triggerConfetti();
+            } else if(correctCount >= 10) {
+                feedbackBox.innerText = "جيد جداً! لكن يمكنك التحسن أكثر 💪";
             } else {
-                labelFeedback.innerText = "محتاج تراجع معلوماتك أكتر يا بطل، حاول تاني 💪";
+                feedbackBox.innerText = "حاول مرة أخرى لتطوير معلوماتك القيمة 📚";
             }
-
-            saveAndDisplayLeaderboard();
+            
+            updateLeaderboard();
         }
 
-        function saveAndDisplayLeaderboard() {
-            // جلب البيانات القديمة من المتصفح
+        // تحديث لوحة الشرف
+        function updateLeaderboard() {
             let leaderboard = JSON.parse(localStorage.getItem('islamicQuizLeaderboard')) || [];
-            
-            // إضافة النتيجة الجديدة
-            leaderboard.push({ name: currentPlayerName, score: userScore });
+            leaderboard.push({ name: playerName, score: score });
             
             // ترتيب تنازلي حسب النقاط
             leaderboard.sort((a, b) => b.score - a.score);
+            // الاحتفاظ بأفضل 5 لاعبين فقط
+            leaderboard = leaderboard.slice(0, 5); 
             
-            // حفظ التحديث
             localStorage.setItem('islamicQuizLeaderboard', JSON.stringify(leaderboard));
             
-            // عرض أعلى 3 فقط
-            const top3 = leaderboard.slice(0, 3);
-            const listContainer = document.getElementById('leaderboardList');
-            listContainer.innerHTML = '';
-
-            const medals = ['🥇', '🥈', '🥉'];
-            const classes = ['rank-1', 'rank-2', 'rank-3'];
-
-            top3.forEach((player, index) => {
-                listContainer.innerHTML += `
-                    <div class="leaderboard-item ${classes[index]}">
-                        <span>${medals[index]} ${player.name}</span>
-                        <span>${player.score} نقطة</span>
-                    </div>
-                `;
+            const list = document.getElementById('leaderboardList');
+            list.innerHTML = '';
+            leaderboard.forEach((entry, idx) => {
+                const item = document.createElement('div');
+                item.className = `leaderboard-item ${idx < 3 ? 'rank-' + (idx + 1) : ''}`;
+                item.innerHTML = `<span>${idx + 1}. ${entry.name}</span><span>${entry.score} نقطة</span>`;
+                list.appendChild(item);
             });
         }
 
+        // العودة للشاشة الرئيسية
         function resetToHome() {
-            screenResult.style.display = 'none';
-            screenLevel.style.display = 'flex';
-            inputName.value = ''; // تفريغ الاسم لبداية جديدة
+            document.getElementById('resultScreen').style.display = 'none';
+            document.getElementById('levelScreen').style.display = 'flex';
+            document.getElementById('playerNameInput').value = '';
         }
-
     </script>
-    
-    <div class="credits">created and Prepared by zidane</div>
-
 </body>
 </html>
